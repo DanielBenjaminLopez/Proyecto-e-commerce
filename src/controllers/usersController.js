@@ -2,6 +2,7 @@ const users = require("../db/dataBase");
 
 const createUserController = (name, username, email) => {
   const id = users.length + 1;
+  if (!name || !email) throw new Error("Faltan datos");
   const newUser = { id, name, username, email };
   users.push(newUser);
   return newUser;
