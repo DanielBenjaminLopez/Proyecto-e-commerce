@@ -1,25 +1,48 @@
+const {
+  createUserController,
+  getAllUsersController,
+  userByNameController,
+  getOneUserByIdController,
+  updateUserController,
+  deleteUserController,
+} = require("../controllers/usersController");
+
 const getAllUsersHandler = (req, res) => {
-  res.send("Estos son los usuarios");
+  const { name } = req.query;
+  if (name) {
+    const response = userByNameController(name);
+    res.send(response);
+  } else {
+    const response = getAllUsersController();
+    res.send(response);
+  }
 };
 
 const getOneHandler = (req, res) => {
   const { id } = req.params;
-  console.log(id);
-  res.send("Detalle de usuario");
+  const response = getOneUserByIdController(id);
+  res.send(response);
 };
 
 const createUserHandler = (req, res) => {
-  const { id, name, username, email } = req.body;
-  console.log(id, name, username, email);
-  res.send("Creando un usuario");
+  const { name, username, email } = req.body;
+
+  //Aca pedimos al controlador que cree al usuario
+  const response = createUserController(name, username, email);
+  res.send(response);
 };
 
 const updateUserHandler = (req, res) => {
-  res.send("Modificación usuario");
+  const { id } = req.params;
+  const { name, username, email } = req.body;
+  const response = updateUserController(id, name, username, email);
+  res.send(response);
 };
 
 const deleteUserHandler = (req, res) => {
-  res.send("Elminación de usuario");
+  const { id } = req.params;
+  const response = deleteUserController(id);
+  res.send(response);
 };
 module.exports = {
   getAllUsersHandler,
