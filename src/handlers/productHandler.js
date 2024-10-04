@@ -1,25 +1,58 @@
+const {
+  getAllProductsController,
+  createProductController,
+  getOneProductController,
+  updateProductController,
+  deleteProductController,
+} = require("../controllers/productController");
+
 const getAllProductsHandler = (req, res) => {
-  res.send("Estos son los productos");
+  try {
+    const response = getAllProductsController();
+    res.send(response);
+  } catch (error) {
+    res.status(418).send({ Error: error.message });
+  }
 };
 
 const getOneProductHandler = (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  res.send("Detalle de producto");
+  try {
+    const { id } = req.params;
+    const response = getOneProductController(id);
+    res.send(response);
+  } catch (error) {
+    res.status(418).send({ Error: error.message });
+  }
 };
 
 const createProductHandler = (req, res) => {
-  const { id, name, description, price } = req.body;
-  console.log(id, name, description, price);
-  res.send("Creando un producto");
+  try {
+    const { name, description, price } = req.body;
+    const response = createProductController(name, description, price);
+    res.send(response);
+  } catch (error) {
+    res.status(418).send({ Error: error.message });
+  }
 };
 
 const updateProductHandler = (req, res) => {
-  res.send("Modificación de producto");
+  try {
+    const { name, description, price } = req.body;
+    const response = updateProductController(name, description, price);
+    res.send(response);
+  } catch (error) {
+    res.status(418).send({ Error: error.message });
+  }
 };
 
 const deleteProductHandler = (req, res) => {
-  res.send("Eliminación de producto");
+  try {
+    const { id } = req.params;
+    const response = deleteProductController(id);
+    res.send(response);
+  } catch (error) {
+    res.status(418).send({ Error: error.message });
+  }
 };
 
 module.exports = {

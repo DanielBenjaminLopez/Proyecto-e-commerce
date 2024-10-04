@@ -13,7 +13,6 @@ usersRouter.get("/", getAllUsersHandler);
 usersRouter.get("/:id", getOneHandler);
 usersRouter.post("/", createUserHandler);
 usersRouter.put("/:id", updateUserHandler);
-
 usersRouter.delete("/:id", deleteUserHandler);
 
 module.exports = usersRouter;
