@@ -4,7 +4,7 @@ const {
   getOneProductController,
   updateProductController,
   deleteProductController,
-} = require("../controllers/productController");
+} = require("../controllers/productsControllers");
 
 const getAllProductsHandler = (req, res) => {
   try {

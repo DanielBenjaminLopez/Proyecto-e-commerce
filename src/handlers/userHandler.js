@@ -6,6 +6,12 @@ const {
   updateUserController,
   deleteUserController,
 } = require("../controllers/usersController");
+const Joi = require("joi");
+const userSchema = Joi.object({
+  name: Joi.string().min(3).required(),
+  username: Joi.string().min(3).required(),
+  email: Joi.string().email().required(),
+});
 
 const getAllUsersHandler = (req, res) => {
   try {
@@ -34,10 +40,15 @@ const getOneHandler = (req, res) => {
 
 const createUserHandler = (req, res) => {
   try {
+    const { error } = userSchema.validate(req.body);
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
     const { name, username, email } = req.body;
     //Aca pedimos al controlador que cree al usuario
     const response = createUserController(name, username, email);
-    res.send(response);
+    res.status(201).send(response);
   } catch (error) {
     res.status(418).send({ Error: error.message });
   }
