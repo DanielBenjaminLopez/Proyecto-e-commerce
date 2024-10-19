@@ -1,9 +1,10 @@
 const users = require("../db/dataBase");
+const bcrypt = require("bcryptjs");
 
-const createUserController = (name, username, email) => {
+const createUserController = async (name, username, email, password, role) => {
   const id = users.length + 1;
-  if (!name || !email) throw new Error("Faltan datos");
-  const newUser = { id, name, username, email };
+  const hashPassword = await bcrypt.hash(password, 10); //hashear toma su tiempo
+  const newUser = { id, name, username, email, password: hashPassword, role };
   users.push(newUser);
   return newUser;
 };

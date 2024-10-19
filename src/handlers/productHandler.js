@@ -31,7 +31,7 @@ const createProductHandler = (req, res) => {
     const response = createProductController(name, description, price);
     res.send(response);
   } catch (error) {
-    res.status(418).send({ Error: error.message });
+    res.status(500).send({ Error: error.message });
   }
 };
 
@@ -41,7 +41,7 @@ const updateProductHandler = (req, res) => {
     const response = updateProductController(name, description, price);
     res.send(response);
   } catch (error) {
-    res.status(418).send({ Error: error.message });
+    res.status(500).send({ Error: error.message });
   }
 };
 
@@ -51,7 +51,7 @@ const deleteProductHandler = (req, res) => {
     const response = deleteProductController(id);
     res.send(response);
   } catch (error) {
-    res.status(418).send({ Error: error.message });
+    res.status(500).send({ Error: error.message });
   }
 };
 

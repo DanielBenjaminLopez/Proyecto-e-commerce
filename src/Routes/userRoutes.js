@@ -6,13 +6,15 @@ const {
   updateUserHandler,
   deleteUserHandler,
 } = require("../handlers/userHandler");
+const verifyToken = require("../middleware/verifyMiddleware");
+const authorizeAdmin = require("../middleware/authotizationMiddleware");
 const usersRouter = Router();
 
-//RUTAS
+//RUTAS-----
 usersRouter.get("/", getAllUsersHandler);
 usersRouter.get("/:id", getOneHandler);
 usersRouter.post("/", createUserHandler);
-usersRouter.put("/:id", updateUserHandler);
+usersRouter.put("/:id", verifyToken, authorizeAdmin, updateUserHandler);
 usersRouter.delete("/:id", deleteUserHandler);
 
 module.exports = usersRouter;
